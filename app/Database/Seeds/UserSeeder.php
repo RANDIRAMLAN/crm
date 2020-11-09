@@ -8,7 +8,7 @@ class UserSeeder extends \CodeIgniter\Database\Seeder
     {
         $data = [
             'employee_id' => '2020110701',
-            'name'    => 'darth@theempire.com',
+            'name'    => 'Randi',
             'email' => 'randi@gmail.com',
             'password' => '12345',
             'role_id' => 1,

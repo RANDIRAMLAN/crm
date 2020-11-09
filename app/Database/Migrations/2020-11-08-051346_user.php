@@ -29,7 +29,7 @@ class User extends Migration
 				],
 				'password' => [
 					'type'			 => 'VARCHAR',
-					'constraint'	 => '50',
+					'constraint'	 => '255',
 				],
 				'role_id' => [
 					'type'			 => 'INT',

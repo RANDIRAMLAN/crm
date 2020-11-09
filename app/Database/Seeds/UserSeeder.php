@@ -10,7 +10,7 @@ class UserSeeder extends \CodeIgniter\Database\Seeder
             'employee_id' => '2020110701',
             'name'    => 'Randi',
             'email' => 'randi@gmail.com',
-            'password' => '12345',
+            'password' => '$2y$10$hLXcZV/vVrO1b/zMmBfp/.ol3nWyFNkBW4oHXoGfoIyaZGwQ3osne',
             'role_id' => 1,
             'status' => 1
         ];

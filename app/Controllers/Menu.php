@@ -52,7 +52,7 @@ class Menu extends BaseController
                 'name'  => $name,
                 'menu'  => $menu
             ];
-            return view('/Menu/list_complaint', $data);
+            return view('/Menu/list_customer', $data);
         } else {
             return redirect()->to('/');
         }
@@ -76,7 +76,7 @@ class Menu extends BaseController
                     'name'  => $name,
                     'menu'  => $menu
                 ];
-                return view('/Menu/list_complaint', $data);
+                return view('/Menu/list_user', $data);
             } else {
                 return redirect()->to('/menu/list_complaint');
             }

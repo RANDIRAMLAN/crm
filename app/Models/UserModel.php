@@ -13,4 +13,19 @@ class UserModel extends Model
     {
         return $this->where(['employee_id' => $id])->orWhere(['email' => $id])->first();
     }
+    // get All data
+    public function getAllData()
+    {
+        return $this->findAll();
+    }
+    // live search
+    public function searchData($search)
+    {
+        return $this->like(['employee_id' => $search])
+            ->orLike(['name' => $search])
+            ->orLike(['email' => $search])
+            ->orLike(['role_id' => $search])
+            ->orLike(['status' => $search])
+            ->findAll();
+    }
 }

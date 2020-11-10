@@ -3,19 +3,24 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\MenuModel;
 
 class Login extends BaseController
 {
     protected $UserModel;
+    protected $MenuModel;
     public function __construct()
     {
         $this->UserModel = new UserModel();
+        $this->MenuModel = new MenuModel();
     }
     // menu Login
     public function login()
     {
+        $role_id = 0;
         $data = [
-            'judul' => 'Login'
+            'title' => 'Login',
+            'menu'  => $this->MenuModel->getUserMenu($role_id)
         ];
         return view('/Login/login', $data);
     }
@@ -54,7 +59,8 @@ class Login extends BaseController
                     if (password_verify($password, $user['password'])) {
                         $data = [
                             'employee_id' => $user['employee_id'],
-                            'name'        => $user['name']
+                            'email'       => $user['email'],
+                            'role_id'     => $user['role_id']
                         ];
                         $msg = [];
                         echo json_encode($msg);

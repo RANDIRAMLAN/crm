@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/crm.css">
 
-    <title><?= $judul; ?></title>
+    <title><?= $title; ?></title>
 </head>
 
 <body>

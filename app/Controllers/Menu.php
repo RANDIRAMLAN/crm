@@ -3,13 +3,16 @@
 namespace App\Controllers;
 
 use App\Models\MenuModel;
+use App\Models\UserModel;
 
 class Menu extends BaseController
 {
     protected $MenuModel;
+    protected $UserModel;
     public function __construct()
     {
         $this->MenuModel = new MenuModel();
+        $this->UserModel = new UserModel();
     }
     // form list complaint
     public function list_complaint()
@@ -74,7 +77,8 @@ class Menu extends BaseController
                 $data = [
                     'title' => 'List User',
                     'name'  => $name,
-                    'menu'  => $menu
+                    'menu'  => $menu,
+                    'user'  => $this->UserModel->getAllData()
                 ];
                 return view('/Menu/list_user', $data);
             } else {

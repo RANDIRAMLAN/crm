@@ -45,42 +45,5 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    // show data user using ajax
-    show_data();
-    function show_data() {
-        let search = $('#search').val();
-    $.ajax({
-        type: 'post',
-        url: '/User/show_data',
-        data: {search: search},
-        dataType: 'json',
-        success: function (data) {
-        let html = '';
-        let i;
-        let no = 1;
-        for (i = 0; i < data.length; i++) {
-        html += '<tr id="' + data[i].id + '">' +
-                '<td>' + no++ + '</td>' +
-                '<td>' + data[i].employee_id + '</td>' +
-                '<td>' + data[i].name + '</td>' +
-                '<td>' + data[i].email + '</td>' +
-                '<td>' + data[i].role_id + '</td>' +
-                '<td>' + data[i].status + '</td>' +
-                '<td style="text-align:center;">' +
-                '<a href="javascript:void(0);" class="btn btn-info btn-sm edit_data_user" data-id="' + data[i].id + '" data-role_id="' + data[i].role_id + '"data-status="' + data[i].status + '">Edit</a>' +
-                '</td>' +
-                '</tr>';
-            }
-            $('#list_user').html(html);
-        },
-        error: function (xhr, ajaxOptions, thrownError) { 
-        alert(xhr.responseText);
-        }
-    });
-    }
-
-    $('#search').keyup(function () {
-        show_data();
-    })
-
+    $('#data_user').DataTable();
 });

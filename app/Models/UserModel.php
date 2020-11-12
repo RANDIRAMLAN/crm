@@ -7,7 +7,14 @@ use CodeIgniter\Model;
 class UserModel extends Model
 {
     protected $table      = 'user';
-    protected $allowedFields = [];
+    protected $allowedFields = [
+        'employee_id',
+        'name',
+        'email',
+        'password',
+        'role_id',
+        'status'
+    ];
     // get user by Id
     public function getUser($id)
     {
@@ -18,14 +25,9 @@ class UserModel extends Model
     {
         return $this->findAll();
     }
-    // live search
-    public function searchData($search)
+    // add data user
+    public function add_data_user($data)
     {
-        return $this->like(['employee_id' => $search])
-            ->orLike(['name' => $search])
-            ->orLike(['email' => $search])
-            ->orLike(['role_id' => $search])
-            ->orLike(['status' => $search])
-            ->findAll();
+        return $this->insert($data);
     }
 }

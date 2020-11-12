@@ -16,39 +16,45 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="add_data _user" method="post">
+                    <form id="add_data_user" method="post">
                         <?= csrf_field(); ?>
                         <div class="form-group">
                             <label for="employee_id">Employee ID</label>
-                            <input type="text" name="employee_id" id="employee_id" class="form-control" autocomplete="off">
+                            <input type="text" name="employee_id" id="employee_id" class="form-control" autocomplete="off" value="<?= old('employee_id'); ?>">
+                            <small class="error_employee_id invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" name="name" id="name" class="form-control" autocomplete="off">
+                            <input type="text" name="name" id="name" class="form-control" autocomplete="off" value="<?= old('name'); ?>">
+                            <small class="error_name invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" name="email" id="email" class="form-control" autocomplete="off">
+                            <input type="text" name="email" id="email" class="form-control" autocomplete="off" value="<?= old('email'); ?>">
+                            <small class="error_email invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" name="password" id="password" class="form-control" autocomplete="off">
+                            <small class="error_password invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="role_id">Role</label>
-                            <select name="role_id" id="role_id" class="form-control">
-                                <option value="">--- Select Role ---</option>
+                            <select name="role_id" id="role_id" class="custom-select">
+                                <option value="">Select Role</option>
                                 <option value="1">1 - Admin</option>
                                 <option value="2">2 - User</option>
                             </select>
+                            <small class="error_role_id invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="status">Status</label>
-                            <select name="status" id="status" class="form-control">
-                                <option value="">--- Select Status ---</option>
+                            <select name="status" id="status" class="custom-select">
+                                <option value="">Select Status</option>
                                 <option value="0">0 - Tidak Aktif</option>
                                 <option value="1">1 - Aktif</option>
                             </select>
+                            <small class="error_status invalid-feedback"></small>
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -83,8 +89,8 @@
                     <td><?= $u['email']; ?></td>
                     <td><?= $u['role_id']; ?></td>
                     <td><?= $u['status']; ?></td>
-                    <td width="10px">
-                        <button type="button" class="btn btn-info btn-sm ml-2 edit_data_user" data-toggle="modal" data-target="#edit_user<?= $i; ?>">
+                    <td class="text-center" width="10px">
+                        <button type="button" class="btn btn-info btn-sm edit_data_user" data-toggle="modal" data-target="#edit_user<?= $i; ?>">
                             Edit
                         </button>
                         <!-- Modal edit data user -->
@@ -135,5 +141,17 @@
 
         </tbody>
     </table>
+    <!-- modal for information -->
+    <div class="modal fade" id="information" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body ml-auto mr-auto">
+                    <strong>
+                        <p id="msg"></p>
+                    </strong>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <?= $this->endSection(); ?>

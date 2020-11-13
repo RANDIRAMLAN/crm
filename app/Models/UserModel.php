@@ -30,4 +30,14 @@ class UserModel extends Model
     {
         return $this->insert($data);
     }
+    // edit data user
+    public function edit_data_user($email, $password, $role_id, $status)
+    {
+        return $this
+            ->set(['password' => $password])
+            ->set(['role_id' => $role_id])
+            ->set(['status' => $status])
+            ->where(['email' => $email])
+            ->update();
+    }
 }

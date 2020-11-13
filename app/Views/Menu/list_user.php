@@ -79,7 +79,7 @@
                 <th class="text-center" scope="col">Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="list_user">
             <?php $i = 1; ?>
             <?php foreach ($user as $u) { ?>
                 <tr>
@@ -90,50 +90,9 @@
                     <td><?= $u['role_id']; ?></td>
                     <td><?= $u['status']; ?></td>
                     <td class="text-center" width="10px">
-                        <button type="button" class="btn btn-info btn-sm edit_data_user" data-toggle="modal" data-target="#edit_user<?= $i; ?>">
+                        <a href="javascript:void(0)" class="btn btn-info btn-sm edit_data_user" data-email=" <?= $u['email']; ?>">
                             Edit
-                        </button>
-                        <!-- Modal edit data user -->
-                        <div class="modal fade" id="edit_user<?= $i; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Edit Data User</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form id="edit_data_user" method="post">
-                                            <?= csrf_field(); ?>
-                                            <div class="form-group">
-                                                <label for="edit_password">Password</label>
-                                                <input type="password" name="password" id="edit_password" class="form-control" autocomplete="off" value="<?= $u['password']; ?>">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="edit_role_id">Role</label>
-                                                <select name="role_id" id="edit_role_id" class="form-control">
-                                                    <option value="">--- Select Role ---</option>
-                                                    <option value="1">1 - Admin</option>
-                                                    <option value="2">2 - User</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="edit_status"></label>
-                                                <select name="status" id="edit_status" class="form-control">
-                                                    <option value="">--- select Status --</option>
-                                                    <option value="0">0 - Tidak Aktif</option>
-                                                    <option value="1">1 - Aktif</option>
-                                                </select>
-                                            </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-info">Edit Data User</button>
-                                    </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                        </a>
                     </td>
                 </tr>
                 <?php $i++; ?>
@@ -141,6 +100,53 @@
 
         </tbody>
     </table>
+    <!-- Modal edit data user -->
+    <div class="modal fade" id="editData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Data User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit_data_user" method="post">
+                        <?= csrf_field(); ?>
+                        <div class="form-group">
+                            <input type="text" name="email" class="edit_email form-control" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" class="edit_password form-control" autocomplete="off">
+                            <small class="error_edit_password invalid-feedback"></small>
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select name="role_id" class="edit_role_id custom-select">
+                                <option value="">Select Role</option>
+                                <option value="1">1 - Admin</option>
+                                <option value="2">2 - User</option>
+                            </select>
+                            <small class="error_edit_role_id invalid-feedback"></small>
+                        </div>
+                        <div class="form-group">
+                            <label></label>
+                            <select name="status" class="edit_status custom-select">
+                                <option value="">select Status</option>
+                                <option value="0">0 - Tidak Aktif</option>
+                                <option value="1">1 - Aktif</option>
+                            </select>
+                            <small class="error_edit_status invalid-feedback"></small>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info">Edit Data User</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- modal for information -->
     <div class="modal fade" id="information" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">

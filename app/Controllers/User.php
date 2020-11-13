@@ -32,7 +32,7 @@ class User extends BaseController
                     ]
                 ],
                 'email' => [
-                    'rules' => 'required',
+                    'rules' => 'is_unique[user.email]|required',
                     'errors' => [
                         'required' => 'Email Can Not Empty',
                         'is_unique' => 'Email Already Exits'
@@ -84,6 +84,7 @@ class User extends BaseController
                     'status'        => $status
                 ];
                 $this->UserModel->add_data_user($data);
+                $this->_sendEmail('add');
                 $msg = [
                     'msg' => 'Data Saved Successfully'
                 ];
@@ -91,6 +92,103 @@ class User extends BaseController
             }
         } else {
             return redirect()->to('/Menu/list_user');
+        }
+    }
+    // edit data user
+    public function edit_data_user()
+    {
+        $validation = \Config\Services::validation();
+        if ($this->request->isAJAX()) {
+            if (!$this->validate([
+                'password' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Password Can Not Empty'
+                    ]
+                ],
+                'role_id' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Role Can Not Empty'
+                    ]
+                ],
+                'status' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Status Can Not Empty'
+                    ]
+                ]
+            ])) {
+                $msg = [
+                    'error' => [
+                        'password' => $validation->getError('password'),
+                        'role_id' => $validation->getError('role_id'),
+                        'status' => $validation->getError('status')
+                    ]
+                ];
+                echo json_encode($msg);
+            } else {
+                $email = $this->request->getVar('email');
+                $password = password_hash($this->request->getVar('password'), PASSWORD_DEFAULT);
+                $role_id = $this->request->getVar('role_id');
+                $status = $this->request->getVar('status');
+                $this->UserModel->edit_data_user($email, $password, $role_id, $status);
+                $this->_sendEmail('edit');
+                $msg = [
+                    'msg' => 'Data Updated Successfully'
+                ];
+                echo json_encode($msg);
+            }
+        } else {
+            return redirect()->to('/Menu/list_user');
+        }
+    }
+    //  email verifikasi saat aktivasi dan lupa sandi
+    private function _sendEmail($type)
+    {
+        $email = \Config\Services::email();
+        $email->setFrom('appjingaraka@gmail.com', 'CRM');
+        $email->setTo($this->request->getVar('email'));
+        if ($type == 'add') {
+            $email->setSubject('Create Account');
+            $email->setMessage('Your Account: <br> 
+                            <table border="1">
+                                <tr>
+                                    <td>Employee ID</td>
+                                    <td>Email</td>
+                                    <td>Password</td>
+                                    <td>Role</td>
+                                    <td>Status</td>
+                                    </tr>
+                                <tr>
+                                    <td>' . $this->request->getVar('employee_id') . '</td>
+                                    <td>' . $this->request->getVar('email') . '</td>
+                                    <td>' . $this->request->getVar('password') . '</td>
+                                    <td>' . $this->request->getVar('role_id') . '</td>
+                                    <td>' . $this->request->getVar('status') . '</td>
+                                </tr>
+                            </table>');
+        }
+        if ($type == 'edit') {
+            $email->setSubject('Update Account');
+            $email->setMessage('This Update About Your Account: <br> 
+                            <table border="1">
+                                <tr>
+                                    <td>Password</td>
+                                    <td>Role</td>
+                                    <td>Status</td>
+                                    </tr>
+                                <tr>
+                                    <td>' . $this->request->getVar('password') . '</td>
+                                    <td>' . $this->request->getVar('role_id') . '</td>
+                                    <td>' . $this->request->getVar('status') . '</td>
+                                </tr>
+                            </table>');
+        }
+        if ($email->send(false)) {
+            $email->printDebugger();
+        } else {
+            $email->send();
         }
     }
 }

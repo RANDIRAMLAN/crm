@@ -4,15 +4,21 @@ namespace App\Controllers;
 
 use App\Models\MenuModel;
 use App\Models\UserModel;
+use App\Models\CustomerModel;
+use App\Models\PostalModel;
 
 class Menu extends BaseController
 {
     protected $MenuModel;
     protected $UserModel;
+    protected $CustomerModel;
+    protected $PostalModel;
     public function __construct()
     {
         $this->MenuModel = new MenuModel();
         $this->UserModel = new UserModel();
+        $this->CustomerModel = new CustomerModel();
+        $this->PostalModel = new PostalModel();
     }
     // form list complaint
     public function list_complaint()
@@ -53,11 +59,68 @@ class Menu extends BaseController
             $data = [
                 'title' => 'List Customer',
                 'name'  => $name,
-                'menu'  => $menu
+                'menu'  => $menu,
+                'customer' => $this->CustomerModel->getAllCustomer(),
+                'country' => $this->PostalModel->country()
             ];
             return view('/Menu/list_customer', $data);
         } else {
             return redirect()->to('/');
+        }
+    }
+    // show data province
+    public function province()
+    {
+        if ($this->request->isAJAX()) {
+            $country = $this->request->getVar('country');
+            $data = $this->PostalModel->province($country);
+            echo json_encode($data);
+        } else {
+            return redirect()->to('/Menu/list_customer');
+        }
+    }
+    // show data city
+    public function city()
+    {
+        if ($this->request->isAJAX()) {
+            $province = $this->request->getVar('province');
+            $data = $this->PostalModel->city($province);
+            echo json_encode($data);
+        } else {
+            return redirect()->to('/Menu/list_customer');
+        }
+    }
+    // show data district
+    public function district()
+    {
+        if ($this->request->isAJAX()) {
+            $city = $this->request->getVar('city');
+            $data = $this->PostalModel->district($city);
+            echo json_encode($data);
+        } else {
+            return redirect()->to('/Menu/list_customer');
+        }
+    }
+    // show data sub district
+    public function sub_district()
+    {
+        if ($this->request->isAJAX()) {
+            $district = $this->request->getVar('district');
+            $data = $this->PostalModel->sub_district($district);
+            echo json_encode($data);
+        } else {
+            return redirect()->to('/Menu/list_customer');
+        }
+    }
+    //  show postal code
+    public function postal_code()
+    {
+        if ($this->request->isAJAX()) {
+            $sub_district = $this->request->getVar('sub_district');
+            $data = $this->PostalModel->postal_code($sub_district);
+            echo json_encode($data);
+        } else {
+            return redirect()->to('/Menu/list_customer');
         }
     }
     // form list user

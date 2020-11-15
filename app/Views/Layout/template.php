@@ -19,7 +19,9 @@
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="/js/ajax.js"></script>
+    <script type="text/javascript" src="/js/login.js"></script>
+    <script type="text/javascript" src="/js/user.js"></script>
+    <script type="text/javascript" src="/js/customer.js"></script>
 </body>
 
 </html>

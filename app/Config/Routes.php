@@ -35,6 +35,7 @@ $routes->get('/', 'Login::login');
 $routes->get('/menu/list_complaint', 'Menu::list_complaint');
 $routes->get('/menu/list_customer', 'Menu::list_customer');
 $routes->get('/menu/list_user', 'Menu::list_user');
+$routes->get('/Import/import', 'Import::import');
 
 /**
  * --------------------------------------------------------------------

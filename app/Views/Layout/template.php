@@ -22,6 +22,7 @@
     <script type="text/javascript" src="/js/login.js"></script>
     <script type="text/javascript" src="/js/user.js"></script>
     <script type="text/javascript" src="/js/customer.js"></script>
+    <script type="text/javascript" src="/js/complaint.js"></script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 <?= $this->extend('Layout/template'); ?>
 <?= $this->section('content'); ?>
-<div class="col col-md-12 mt-2">
+<div class=" container mt-4">
     <!-- add data user -->
     <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addData">
         Add Data User
@@ -65,12 +65,12 @@
         </div>
     </div>
 </div>
-<div class="col col-md-12 mt-4">
+<div class="container mt-3">
     <!-- show data -->
     <table class="table table-hover table-bordered" id="data_user">
         <thead>
             <tr>
-                <th class="text-center" scope="col">Nomor</th>
+                <th class="text-center" scope="col">No</th>
                 <th scope="col">Employee ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>

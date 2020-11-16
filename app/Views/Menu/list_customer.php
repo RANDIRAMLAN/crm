@@ -102,7 +102,7 @@
     <table class="table table-hover table-bordered table-responsive" id="data_customer">
         <thead>
             <tr>
-                <th class="text-center" scope="col">Nomor</th>
+                <th class="text-center" scope="col">No</th>
                 <th scope="col">Company</th>
                 <th scope="col">Owner</th>
                 <th scope="col">Phone Number</th>

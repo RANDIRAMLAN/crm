@@ -3,14 +3,17 @@
 namespace App\Controllers;
 
 use App\Models\ComplaintModel;
+use App\Models\MenuModel;
 
 class Complaint extends BaseController
 {
     protected $ComplaintModel;
+    protected $MenuModel;
 
     public function __construct()
     {
         $this->ComplaintModel = new ComplaintModel();
+        $this->MenuModel = new MenuModel();
     }
     // show data Complaint
     public function show_data_complaint()
@@ -35,6 +38,30 @@ class Complaint extends BaseController
             echo json_encode($data);
         } else {
             return redirect()->to('/Menu/list_complaint');
+        }
+    }
+
+    // add complaint
+    public function add_data_complaint()
+    {
+        $employee_id = session()->get('employee_id');
+        $name = session()->get('name');
+        $email = session()->get('email');
+        $role_id = session()->get('role_id');
+        if ($employee_id || $email) {
+            if ($role_id == 1) {
+                $menu = $this->MenuModel->getAllmenu();
+            } else {
+                $menu = $this->MenuModel->getUserMenu($role_id);
+            }
+            $data = [
+                'title' => 'Complaint',
+                'name'  => $name,
+                'menu'  => $menu
+            ];
+            return view('/Complaint/complaint', $data);
+        } else {
+            return redirect()->to('/');
         }
     }
 }

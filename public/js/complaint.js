@@ -20,7 +20,7 @@ $(document).ready(function () {
                 '<td>' + data[i].to_do + '</td>' +
                 '<td>' + data[i].status + '</td>' +
                 '<td class="text-center">' +
-                '<a href="/Complaint/complaint/'+data[i].id+'" class="btn btn-info btn-sm edit_data_complaint">Edit</i></a>' +
+                '<a href="/Complaint/edit_data_complaint/'+data[i].id+'" class="btn btn-info btn-sm">Edit</i></a>' +
                 '</td>' +
                 '</tr>';
             } 

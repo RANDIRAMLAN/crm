@@ -1,16 +1,3 @@
 .button {
   width: 100%;
 }
-
-.Pending {
-  background-color: #ffc107;
-}
-.Progress {
-  background-color: #f8f9fa;
-}
-.Done {
-  background-color: #28a745;
-}
-.Submit {
-  background-color: white;
-}

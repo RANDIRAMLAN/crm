@@ -29,6 +29,7 @@ class ComplaintModel extends Model
             ->where(['status' => 'Pending'])
             ->orWhere(['status' => 'Progress'])
             ->orWhere(['status' => 'Done'])
+            ->orWhere(['status' => 'Submit'])
             ->findAll();
     }
     public function getAllComplaint()
@@ -37,6 +38,7 @@ class ComplaintModel extends Model
             ->where(['status' => 'Pending'])
             ->orWhere(['status' => 'Progress'])
             ->orWhere(['status' => 'Done'])
+            ->orWhere(['status' => 'Submit'])
             ->findAll();
     }
     // get by Data
@@ -53,6 +55,11 @@ class ComplaintModel extends Model
             ->orLike(['solution' => $search])
             ->findAll();
     }
+    // add data 
+    public function addData($data)
+    {
+        return $this->insert($data);
+    }
     // edit data complaint
     public function edit_data_complaint($id, $company, $phone_number, $email, $complaint, $complaint_desc, $screen_complaint, $status, $to_do, $sulution, $screen_fix)
     {
@@ -67,6 +74,14 @@ class ComplaintModel extends Model
             ->set(['to_do' => $to_do])
             ->set(['sulution' => $sulution])
             ->set(['screen_fix' => $screen_fix])
+            ->where(['id' => $id])
+            ->update();
+    }
+    // edit screen complaint
+    public function screen_complaint($id, $screen_complaint)
+    {
+        return $this
+            ->set(['screen_complaint' => $screen_complaint])
             ->where(['id' => $id])
             ->update();
     }

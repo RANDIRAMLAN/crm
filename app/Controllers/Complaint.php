@@ -59,9 +59,141 @@ class Complaint extends BaseController
                 'name'  => $name,
                 'menu'  => $menu
             ];
-            return view('/Complaint/complaint', $data);
+            return view('/Complaint/add_data_complaint', $data);
         } else {
             return redirect()->to('/');
+        }
+    }
+    // save data complaint
+    public function save_data_complaint()
+    {
+        $validation = \Config\Services::validation();
+        if ($this->request->isAJAX()) {
+            $role_id = session()->get('role_id');
+            $company = $this->request->getVar('company');
+            $phone_number = $this->request->getVar('phone_number');
+            $email = $this->request->getVar('email');
+            $complaint = $this->request->getVar('complaint');
+            $complaint_desc = $this->request->getVar('complaint_desc');
+            $screen_complaint = 'Default.jpg';
+            $status = 'Pending';
+            $to_do = $this->request->getVar('to_do');
+            $solution = '-';
+            $screen_fix = 'Default.jpg';
+            if ($role_id == 1) {
+                if (!$this->validate([
+                    'company' => [
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => 'Company Can Not Empty'
+                        ]
+                    ],
+                    'phone_number' => [
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => 'Phone Number Can Not Empty'
+                        ]
+                    ],
+                    'email' => [
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => 'Email Can Not Empty'
+                        ]
+                    ],
+                    'complaint' => [
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => 'Complaint Can Not Empty'
+                        ]
+                    ],
+                    'complaint_desc' => [
+                        'rules' => 'required|max_length[500]',
+                        'errors' => [
+                            'required' => 'Complaint Description Can Not Empty',
+                            'max_length' => 'Max Length 500 Character'
+                        ]
+                    ],
+                    'to_do' => [
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => 'To Can Not Empty'
+                        ]
+                    ]
+                ])) {
+                    $msg = [
+                        'error' => [
+                            'company' => $validation->getError('company'),
+                            'phone_number' => $validation->getError('phone_number'),
+                            'email' => $validation->getError('email'),
+                            'complaint' => $validation->getError('complaint'),
+                            'complaint_desc' => $validation->getError('complaint_desc'),
+                            'to_do' => $validation->getError('to_do')
+                        ]
+                    ];
+                    echo json_encode($msg);
+                } else {
+                    $data = [
+                        'company' => $company,
+                        'phone_number' => $phone_number,
+                        'email' => $email,
+                        'complaint' => $complaint,
+                        'complaint_desc' => $complaint_desc,
+                        'screen_complaint' => $screen_complaint,
+                        'status' => $status,
+                        'to_do' => $to_do,
+                        'solution' => $solution,
+                        'screen_fix' => $screen_fix
+                    ];
+                    $this->ComplaintModel->addData($data);
+                    $msg = [
+                        'msg' => 'Data Saved Successfully'
+                    ];
+                    echo json_encode($msg);
+                }
+            } else {
+                $msg = [
+                    'msg' => 'You Can Not Save This Data'
+                ];
+                echo json_encode($msg);
+            }
+        } else {
+            return redirect()->to('/Menu/list_complaint');
+        }
+    }
+    // set screen_complaint
+    public function screen_complaint()
+    {
+        $validation = \Config\Services::validation();
+        if ($this->request->isAJAX()) {
+            if (!$this->validate([
+                'screen_complaint' => [
+                    'rules' => 'uploaded[screen_complaint]|is_image[screen_complaint]|mime_in[screen_complaint,image/jpg,image/jpeg,image/png]',
+                    'errors' => [
+                        'uploaded' => 'Screen Complaint Can Not Empty',
+                        'is_image' => 'Only For Screen Complaint(Photo)',
+                        'mime_in' => 'File Must .jeg, .jpg or .png'
+                    ]
+                ]
+            ])) {
+                $msg = [
+                    'error' => [
+                        'screen_complaint' => $validation->getError('screen_complaint')
+                    ]
+                ];
+                echo json_encode($msg);
+            } else {
+                $id = $this->request->getVar('id');
+                $new_screen_complaint = $this->request->getFile('screen_complaint');
+                $screen_complaint = $new_screen_complaint->getRandomName();
+                $this->ComplaintModel->screen_complaint($id, $screen_complaint);
+                $new_screen_complaint->move('img/Complaint', $screen_complaint);
+                $msg = [
+                    'msg' => 'Data Updated Successfully'
+                ];
+                echo json_encode($msg);
+            }
+        } else {
+            return redirect()->to('/Menu/list_complaint');
         }
     }
 }

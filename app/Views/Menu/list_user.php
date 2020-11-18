@@ -20,17 +20,17 @@
                         <?= csrf_field(); ?>
                         <div class="form-group">
                             <label for="employee_id">Employee ID</label>
-                            <input type="text" name="employee_id" id="employee_id" class="form-control" autocomplete="off" value="<?= old('employee_id'); ?>">
+                            <input type="text" name="employee_id" id="employee_id" class="form-control" autocomplete="off">
                             <small class="error_employee_id invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" name="name" id="name" class="form-control" autocomplete="off" value="<?= old('name'); ?>">
+                            <input type="text" name="name" id="name" class="form-control" autocomplete="off">
                             <small class="error_name invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" name="email" id="email" class="form-control" autocomplete="off" value="<?= old('email'); ?>">
+                            <input type="text" name="email" id="email" class="form-control" autocomplete="off">
                             <small class="error_email invalid-feedback"></small>
                         </div>
                         <div class="form-group">
@@ -91,7 +91,7 @@
                     <td><?= $u['status']; ?></td>
                     <td class="text-center" width="10px">
                         <a href="javascript:void(0)" class="btn btn-info btn-sm edit_data_user" data-email=" <?= $u['email']; ?>">
-                            Edit
+                            <i class="fas fa-pen-alt"></i>
                         </a>
                     </td>
                 </tr>
@@ -153,7 +153,7 @@
             <div class="modal-content">
                 <div class="modal-body ml-auto mr-auto">
                     <strong>
-                        <p id="msg"></p>
+                        <p id="msg" class="text-center"></p>
                     </strong>
                 </div>
             </div>

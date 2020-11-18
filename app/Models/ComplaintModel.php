@@ -85,4 +85,17 @@ class ComplaintModel extends Model
             ->where(['id' => $id])
             ->update();
     }
+    // edit screen fix
+    public function screen_fix($id, $screen_fix)
+    {
+        return $this
+            ->set(['screen_fix' => $screen_fix])
+            ->where(['id' => $id])
+            ->update();
+    }
+    // get data by id
+    public function getById($id)
+    {
+        return $this->where(['id' => $id])->first();
+    }
 }

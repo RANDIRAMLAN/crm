@@ -34,7 +34,7 @@
         <tbody id="list_complaint">
         </tbody>
     </table>
-    <!-- edit data complaint -->
+    <!-- edit data screen complaint -->
     <div class="modal fade" id="editScreenComplaint" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -60,13 +60,39 @@
             </div>
         </div>
     </div>
+    <!-- edit data screen fix -->
+    <div class="modal fade" id="editScreenFix" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Screen FiX</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="edit_screen_fix" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="screen_fix">Screen Fix</label>
+                            <input type="hidden" name="id_fix" id="id_fix">
+                            <input type="file" class="form-control-file" name="screen_fix" id="screen_fix">
+                            <small class="error_screen_fix invalid-feedback"></small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info btn_screen_fix">Upload Screen</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- modal for information -->
-    <div class="modal fade" id="information_screen_complaint" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="information_edit_complaint" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-body ml-auto mr-auto">
                     <strong>
-                        <p id="msg_screen_complaint"></p>
+                        <p id="msg_edit_complaint" class="text-center"></p>
                     </strong>
                 </div>
             </div>

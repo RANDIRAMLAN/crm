@@ -48,4 +48,9 @@ class CustomerModel extends Model
             ->where(['id' => $id])
             ->update();
     }
+    // autocomplate search data company
+    public function autocompleteCompany($autocomplate)
+    {
+        return $this->like(['company' => $autocomplate])->findAll();
+    }
 }

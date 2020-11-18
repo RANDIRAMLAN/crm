@@ -151,6 +151,35 @@ class Menu extends BaseController
             return redirect()->to('/');
         }
     }
+    // autocomplate search data company
+    public function company()
+    {
+        $autocomplate = $this->request->getVar('term');
+        $company = $this->CustomerModel->autocompleteCompany($autocomplate);
+        $data = array();
+        foreach ($company as $c) {
+            $data[] = [
+                'label' => $c['company'],
+                'phone_number' => $c['phone_number'],
+                'email' => $c['email']
+            ];
+        }
+        echo json_encode($data);
+    }
+    // autocomplate search data user
+    public function name()
+    {
+        $autocomplate = $this->request->getVar('term');
+        $to_do = $this->UserModel->autocompleteUser($autocomplate);
+        $data = array();
+        foreach ($to_do as $u) {
+            $data[] = [
+                'label' => $u['name'],
+                'employee_id' => $u['employee_id']
+            ];
+        }
+        echo json_encode($data);
+    }
     // logout app
     public function  logout()
     {

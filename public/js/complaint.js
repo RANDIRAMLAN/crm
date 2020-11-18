@@ -20,13 +20,13 @@ $(document).ready(function () {
                 '<td>' + data[i].to_do + '</td>' +
                 '<td width="10px">' + data[i].status + '</td>' +
                 '<td width="10px" class="text-center">' +
-                '<a href="/Complaint/edit_data_complaint/'+data[i].id+'" class="btn btn-info btn-sm">Edit</i></a>' +
+                '<a href="avascript:void(0);" class="btn btn-info btn-sm edit_data_complaint" data-id="'+data[i].id+'"><i class="fas fa-pen-alt"></i></a>' +
                 '</td>' +
                 '<td width="10px" class="text-center">' +
-                '<a href="javascript:void(0);" class="btn btn-info btn-sm edit_screen_complaint" data-id="'+data[i].id+'">Complaint</i></a>' +
+                '<a href="javascript:void(0);" class="btn btn-info btn-sm edit_screen_complaint" data-id="'+data[i].id+'"><i class="fas fa-bug"></i></a>' +
                 '</td>' +
                 '<td width="10px" class="text-center">' +
-                '<a href="javascript:void(0);" class="btn btn-info btn-sm edit_screen_fix" data-id="'+data[i].id+'">Fix</i></a>' +
+                '<a href="javascript:void(0);" class="btn btn-info btn-sm edit_screen_fix" data-id="'+data[i].id+'"><i class="fas fa-hammer"></i></a>' +
                 '</td>' +
                 '</tr>';
             } 
@@ -162,11 +162,51 @@ $.ajax({
             }
         }else{
             $('#editScreenComplaint').modal('hide');
-            $('#information_screen_complaint').modal('show');
-            $('#msg_screen_complaint').html(response.msg);
+            $('#information_edit_complaint').modal('show');
+            $('#msg_edit_complaint').html(response.msg);
             setTimeout(() => {
-                $('#information_screen_complaint').modal('hide');
-                location.href = '/Menu/list_complaint';
+                $('#information_edit_complaint').modal('hide');
+            }, 1500)
+        }
+    },
+    error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+    });
+    return false;
+    });
+    // edit screen fix
+$('#data_complaint').on('click', '.edit_screen_fix', function () {
+    $('#editScreenFix').modal('show');
+    $('#id_fix').val($(this).data('id'));
+});
+$('.btn_screen_fix').click(function (e) {
+let form = $('#edit_screen_fix')[0];
+let data = new FormData(form);
+$.ajax({
+    type: 'post',
+    url: '/Complaint/screen_fix',
+    data: data,
+    enctype: 'multipart/form-data',
+    processData: false,
+    contentType: false,
+    cache: false,
+    dataType: 'json',
+    success: function (response) {
+        if(response.error){
+            if(response.error.screen_fix){
+                $('#screen_fix').addClass('is-invalid')
+                $('.error_screen_fix').html(response.error.screen_fix);
+            }else{
+                $('#screen_fix').removeClass('is-invalid')
+                $('.error_screen_fix').html("");
+            }
+        }else{
+            $('#editScreenFix').modal('hide');
+            $('#information_edit_complaint').modal('show');
+            $('#msg_edit_complaint').html(response.msg);
+            setTimeout(() => {
+                $('#information_edit_complaint').modal('hide');
             }, 1500)
         }
     },

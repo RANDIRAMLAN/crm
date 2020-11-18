@@ -24,7 +24,7 @@ class Customer extends BaseController
             $country = $this->request->getVar('country');
             $province = $this->request->getVar('province');
             $city = $this->request->getVar('city');
-            $district = $this->request->getVar('disrict');
+            $district = $this->request->getVar('district');
             $sub_district = $this->request->getVar('sub_district');
             $postal_code = $this->request->getVar('postal_code');
             if (!$this->validate([
@@ -120,7 +120,7 @@ class Customer extends BaseController
                     'address' => $address,
                     'country' => $country,
                     'province' => $province,
-                    'citu' => $city,
+                    'city' => $city,
                     'district' => $district,
                     'sub_district' => $sub_district,
                     'postal_code' => $postal_code

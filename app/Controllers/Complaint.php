@@ -184,11 +184,55 @@ class Complaint extends BaseController
             } else {
                 $id = $this->request->getVar('id');
                 $new_screen_complaint = $this->request->getFile('screen_complaint');
+                $current_screen = $this->ComplaintModel->getById($id);
+                if ($current_screen['screen_complaint'] != 'Default.jpg') {
+                    unlink('img/Complaint/' . $current_screen['screen_complaint']);
+                }
                 $screen_complaint = $new_screen_complaint->getRandomName();
-                $this->ComplaintModel->screen_complaint($id, $screen_complaint);
                 $new_screen_complaint->move('img/Complaint', $screen_complaint);
+                $this->ComplaintModel->screen_complaint($id, $screen_complaint);
                 $msg = [
-                    'msg' => 'Data Updated Successfully'
+                    'msg' => 'Screen Complaint Updated Successfully'
+                ];
+                echo json_encode($msg);
+            }
+        } else {
+            return redirect()->to('/Menu/list_complaint');
+        }
+    }
+    // set screen_complaint
+    public function screen_fix()
+    {
+        $validation = \Config\Services::validation();
+        if ($this->request->isAJAX()) {
+            if (!$this->validate([
+                'screen_fix' => [
+                    'rules' => 'uploaded[screen_fix]|is_image[screen_fix]|mime_in[screen_fix,image/jpg,image/jpeg,image/png]',
+                    'errors' => [
+                        'uploaded' => 'Screen Fix Can Not Empty',
+                        'is_image' => 'Only For Screen Complaint(Photo)',
+                        'mime_in' => 'File Must .jeg, .jpg or .png'
+                    ]
+                ]
+            ])) {
+                $msg = [
+                    'error' => [
+                        'screen_fix' => $validation->getError('screen_fix')
+                    ]
+                ];
+                echo json_encode($msg);
+            } else {
+                $id = $this->request->getVar('id_fix');
+                $new_screen_fix = $this->request->getFile('screen_fix');
+                $current_screen = $this->ComplaintModel->getById($id);
+                if ($current_screen['screen_fix'] != 'Default.jpg') {
+                    unlink('img/Complaint/' . $current_screen['screen_fix']);
+                }
+                $screen_fix = $new_screen_fix->getRandomName();
+                $this->ComplaintModel->screen_fix($id, $screen_fix);
+                $new_screen_fix->move('img/Complaint', $screen_fix);
+                $msg = [
+                    'msg' => 'Screen Fix Updated Successfully'
                 ];
                 echo json_encode($msg);
             }

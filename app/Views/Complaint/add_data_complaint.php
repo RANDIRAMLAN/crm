@@ -12,7 +12,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="company">Company</label>
-                            <input type="text" name="company" id="company" class="form-control" autocomplete="off">
+                            <input type="text" name="company" id="company" class="form-control ">
                             <small class=" error_company invalid-feedback"></small>
                         </div>
                         <div class="form-group">
@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-group">
                             <label for="to_do">To</label>
-                            <input type="text" name="to_do" id="to_do" class="form-control" autocomplete="off">
+                            <input type="text" name="to_do" id="to_do" class="form-control">
                             <small class="error_to_do invalid-feedback"></small>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
             <div class="modal-content">
                 <div class="modal-body ml-auto mr-auto">
                     <strong>
-                        <p id="msg_complaint"></p>
+                        <p id="msg_complaint" class="text-center"></p>
                     </strong>
                 </div>
             </div>

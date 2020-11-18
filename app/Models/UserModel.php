@@ -40,4 +40,12 @@ class UserModel extends Model
             ->where(['email' => $email])
             ->update();
     }
+    // autocomplate search data user
+    public function autocompleteUser($autocomplate)
+    {
+        return $this
+            ->like(['name' => $autocomplate])
+            ->orLike(['employee_id' => $autocomplate])
+            ->findAll();
+    }
 }

@@ -20,33 +20,33 @@
                         <?= csrf_field(); ?>
                         <div class="form-group">
                             <label for="company">Company</label>
-                            <input type="text" name="company" id="company" class="form-control" autocomplete="off" value="<?= old('company'); ?>">
+                            <input type="text" name="company" id="company" class="form-control" autocomplete="off">
                             <small class="error_company invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="owner">Owner</label>
-                            <input type="text" name="owner" id="owner" class="form-control" autocomplete="off" value="<?= old('owner'); ?>">
+                            <input type="text" name="owner" id="owner" class="form-control" autocomplete="off">
                             <small class="error_owner invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="phone_number">Phone Number</label>
-                            <input type="text" name="phone_number" id="phone_number" class="form-control" autocomplete="off" value="<?= old('phone_number'); ?>">
+                            <input type="text" name="phone_number" id="phone_number" class="form-control" autocomplete="off">
                             <small class="error_phone_number invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" name="email" id="email" class="form-control" autocomplete="off" value="<?= old('email'); ?>">
+                            <input type="email" name="email" id="email" class="form-control" autocomplete="off">
                             <small class="error_email invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="address">Address</label>
-                            <textarea name="address" id="address" cols="30" rows="3" class="form-control"><?= old('address'); ?></textarea>
+                            <textarea name="address" id="address" cols="30" rows="3" class="form-control"></textarea>
                             <small class="error_address invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="country">Country</label>
                             <select name="country" id="country" class="custom-select">
-                                <option value="<?= old('country'); ?>"><?= (old('country')) ? old('country') : 'Select Country'; ?></option>
+                                <option value="">Select Country</option>
                                 <?php foreach ($country as $co) { ?>
                                     <option value="<?= $co['country']; ?>"><?= $co['country']; ?></option>
                                 <?php }; ?>
@@ -56,35 +56,35 @@
                         <div class="form-group">
                             <label for="province">Province</label>
                             <select name="province" id="province" class="custom-select">
-                                <option value="<?= old('province'); ?>"><?= (old('province')) ? old('province') : 'Select Province'; ?></option>
+                                <option value="">Select Province</option>
                             </select>
                             <small class="error_province invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="city">City</label>
                             <select name="city" id="city" class="custom-select">
-                                <option value="<?= old('city'); ?>"><?= (old('city')) ? old('city') : 'Select City'; ?></option>
+                                <option value="">Select City</option>
                             </select>
                             <small class="error_city invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="district">District</label>
                             <select name="district" id="district" class="custom-select">
-                                <option value="<?= old('district'); ?>"><?= (old('district')) ? old('district') : 'Select district'; ?></option>
+                                <option value="">Select District</option>
                             </select>
                             <small class="error_district invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="sub_district">Sub District</label>
                             <select name="sub_district" id="sub_district" class="custom-select">
-                                <option value="<?= old('sub_district'); ?>"><?= (old('sub_district')) ? old('sub_district') : 'Select Sub District'; ?></option>
+                                <option value="">Select Sub District</option>
                             </select>
                             <small class="error_sub_district invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="postal_code">Postal Code</label>
                             <select name="postal_code" id="postal_code" class="custom-select">
-                                <option value="<?= old('postal_code'); ?>"><?= (old('postal_code')) ? old('postal_code') : 'Select Postal Code'; ?></option>
+                                <option value="">Select Postal Code</option>
                             </select>
                             <small class="error_postal_code invalid-feedback"></small>
                         </div>
@@ -135,7 +135,7 @@
                     <td><?= $c['postal_code']; ?></td>
                     <td class="text-center" width="10px">
                         <a href="javascript:void(0)" class="btn btn-info btn-sm edit_data_customer" data-id="<?= $c['id']; ?>" data-company=" <?= $c['company']; ?>" data-owner="<?= $c['owner']; ?>" data-phone_number="<?= $c['phone_number']; ?>" data-email="<?= $c['email']; ?>" data-address="<?= $c['address']; ?>" data-country="<?= $c['country']; ?>" data-province="<?= $c['province']; ?>" data-city="<?= $c['city']; ?>" data-district="<?= $c['district']; ?>" data-sub_district="<?= $c['sub_district']; ?>" data-postal_code="<?= $c['postal_code']; ?>">
-                            Edit
+                            <i class="fas fa-pen-alt"></i>
                         </a>
                     </td>
                 </tr>
@@ -166,27 +166,27 @@
                         <input type="hidden" name="old_postal_code" id="old_postal_code">
                         <div class="form-group">
                             <label for="edit_company">Company</label>
-                            <input type="text" name="company" id="edit_company" class="form-control" autocomplete="off" value="<?= old('company'); ?>">
+                            <input type="text" name="company" id="edit_company" class="form-control" autocomplete="off">
                             <small class="error_edit_company invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="edit_owner">Owner</label>
-                            <input type="text" name="owner" id="edit_owner" class="form-control" autocomplete="off" value="<?= old('owner'); ?>">
+                            <input type="text" name="owner" id="edit_owner" class="form-control" autocomplete="off">
                             <small class="error_edit_owner invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="edit_phone_number">Phone Number</label>
-                            <input type="text" name="phone_number" id="edit_phone_number" class="form-control" autocomplete="off" value="<?= old('phone_number'); ?>">
+                            <input type="text" name="edit_phone_number" id="edit_phone_number" class="form-control" autocomplete="off">
                             <small class="error_edit_phone_number invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="edit_email">Email</label>
-                            <input type="email" name="email" id="edit_email" class="form-control" autocomplete="off" value="<?= old('email'); ?>">
+                            <input type="email" name="email" id="edit_email" class="form-control" autocomplete="off">
                             <small class="error_edit_email invalid-feedback"></small>
                         </div>
                         <div class="form-group">
                             <label for="edit_address">Address</label>
-                            <textarea name="address" id="edit_address" cols="30" rows="3" class="form-control"><?= old('address'); ?></textarea>
+                            <textarea name="address" id="edit_address" cols="30" rows="3" class="form-control"></textarea>
                             <small class="error_edit_address invalid-feedback"></small>
                         </div>
                         <!-- hide or show -->
@@ -205,7 +205,7 @@
                                         <div class="form-group">
                                             <label for="edit_country">Country</label>
                                             <select name="country" id="edit_country" class="custom-select">
-                                                <option value="<?= old('country'); ?>"><?= (old('country')) ? old('country') : 'Select Country'; ?></option>
+                                                <option value="">Select Country</option>
                                                 <?php foreach ($country as $co) { ?>
                                                     <option value="<?= $co['country']; ?>"><?= $co['country']; ?></option>
                                                 <?php }; ?>
@@ -215,35 +215,35 @@
                                         <div class="form-group">
                                             <label for="edit_province">Province</label>
                                             <select name="province" id="edit_province" class="custom-select">
-                                                <option value="<?= old('province'); ?>"><?= (old('province')) ? old('province') : 'Select Province'; ?></option>
+                                                <option value="">Select Province</option>
                                             </select>
                                             <small class="error_edit_province invalid-feedback"></small>
                                         </div>
                                         <div class="form-group">
                                             <label for="edit_city">City</label>
                                             <select name="city" id="edit_city" class="custom-select">
-                                                <option value="<?= old('city'); ?>"><?= (old('city')) ? old('city') : 'Select City'; ?></option>
+                                                <option value="">Select City</option>
                                             </select>
                                             <small class="error_edit_city invalid-feedback"></small>
                                         </div>
                                         <div class="form-group">
                                             <label for="edit_district">District</label>
                                             <select name="district" id="edit_district" class="custom-select">
-                                                <option value="<?= old('district'); ?>"><?= (old('district')) ? old('district') : 'Select district'; ?></option>
+                                                <option value="">Select District</option>
                                             </select>
                                             <small class="error_edit_district invalid-feedback"></small>
                                         </div>
                                         <div class="form-group">
                                             <label for="edit_sub_district">Sub District</label>
                                             <select name="sub_district" id="edit_sub_district" class="custom-select">
-                                                <option value="<?= old('sub_district'); ?>"><?= (old('sub_district')) ? old('sub_district') : 'Select Sub District'; ?></option>
+                                                <option value="">Select Sub District</option>
                                             </select>
                                             <small class="error_edit_sub_district invalid-feedback"></small>
                                         </div>
                                         <div class="form-group">
                                             <label for="edit_postal_code">Postal Code</label>
                                             <select name="postal_code" id="edit_postal_code" class="custom-select">
-                                                <option value="<?= old('postal_code'); ?>"><?= (old('postal_code')) ? old('postal_code') : 'Select Postal Code'; ?></option>
+                                                <option value="">Select Postal Code</option>
                                             </select>
                                             <small class="error_edit_postal_code invalid-feedback"></small>
                                         </div>
@@ -265,7 +265,7 @@
             <div class="modal-content">
                 <div class="modal-body ml-auto mr-auto">
                     <strong>
-                        <p id="msg_customer"></p>
+                        <p id="msg_customer" class="text-center"></p>
                     </strong>
                 </div>
             </div>

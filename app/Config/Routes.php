@@ -37,7 +37,7 @@ $routes->get('/menu/list_customer', 'Menu::list_customer');
 $routes->get('/menu/list_user', 'Menu::list_user');
 $routes->get('/Import/import', 'Import::import');
 $routes->get('/complaint/add_data_complaint', 'Complaint::add_data_complaint');
-$routes->get('/complaint/add_data_complaint', 'Complaint::add_data_complaint');
+$routes->get('/complaint/edit_data_complaint', 'Complaint::edit_data_complaint');
 
 /**
  * --------------------------------------------------------------------

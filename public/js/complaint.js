@@ -20,7 +20,7 @@ $(document).ready(function () {
                 '<td>' + data[i].to_do + '</td>' +
                 '<td width="10px">' + data[i].status + '</td>' +
                 '<td width="10px" class="text-center">' +
-                '<a href="avascript:void(0);" class="btn btn-info btn-sm edit_data_complaint" data-id="'+data[i].id+'"><i class="fas fa-pen-alt"></i></a>' +
+                '<a href="/Complaint/edit_data_complaint/'+data[i].id+'" class="btn btn-info btn-sm"><i class="fas fa-pen-alt"></i></a>' +
                 '</td>' +
                 '<td width="10px" class="text-center">' +
                 '<a href="javascript:void(0);" class="btn btn-info btn-sm edit_screen_complaint" data-id="'+data[i].id+'"><i class="fas fa-bug"></i></a>' +
@@ -175,7 +175,7 @@ $.ajax({
     });
     return false;
     });
-    // edit screen fix
+// edit screen fix
 $('#data_complaint').on('click', '.edit_screen_fix', function () {
     $('#editScreenFix').modal('show');
     $('#id_fix').val($(this).data('id'));
@@ -216,4 +216,51 @@ $.ajax({
     });
     return false;
     });
+    // edit data complaint
+$('#edit_data_complaint').submit('click', function () {
+    let id = $('#edit_id').val();
+    let status = $('#edit_status').val();
+    let solution = $('#edit_solution').val();
+    $.ajax({
+        type: 'post',
+        url: '/Complaint/update_data_complaint',
+        data: {
+            id: id,
+            status: status,
+            solution: solution
+        },
+        dataType: 'json',
+        success: function (response) {
+            if(response.error){
+                if(response.error.status){
+                    $('#edit_status').addClass('is-invalid');
+                    $('.error_edit_status').html(response.error.status);
+                }else{
+                    $('#edit_status').removeClass('is-invalid');
+                    $('#edit_status').addClass('is-valid');
+                    $('.error_edit_status').html("");
+                }
+                if(response.error.solution){
+                    $('#edit_solution').addClass('is-invalid');
+                    $('.error_edit_solution').html(response.error.solution);
+                }else{
+                    $('#edit_solution').removeClass('is-invalid');
+                    $('#edit_solution').addClass('is-valid');
+                    $('.error_edit_solution').html("");
+                }
+            }else{
+            $('#information_edit_data_complaint').modal('show');
+            $('#msg_edit_data_complaint').html(response.msg);
+            setTimeout(() => {
+            $('#information_edit_data_complaint').modal('hide');
+            location.href = '/Menu/list_complaint'
+            }, 1500)
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+    });
+    return false;
+});
 });

@@ -185,11 +185,11 @@ class Complaint extends BaseController
                 $id = $this->request->getVar('id');
                 $new_screen_complaint = $this->request->getFile('screen_complaint');
                 $current_screen = $this->ComplaintModel->getById($id);
+                $screen_complaint = $new_screen_complaint->getRandomName();
+                $new_screen_complaint->move('img/Complaint', $screen_complaint);
                 if ($current_screen['screen_complaint'] != 'Default.jpg') {
                     unlink('img/Complaint/' . $current_screen['screen_complaint']);
                 }
-                $screen_complaint = $new_screen_complaint->getRandomName();
-                $new_screen_complaint->move('img/Complaint', $screen_complaint);
                 $this->ComplaintModel->screen_complaint($id, $screen_complaint);
                 $msg = [
                     'msg' => 'Screen Complaint Updated Successfully'
@@ -200,7 +200,7 @@ class Complaint extends BaseController
             return redirect()->to('/Menu/list_complaint');
         }
     }
-    // set screen_complaint
+    // set screen fix
     public function screen_fix()
     {
         $validation = \Config\Services::validation();
@@ -225,12 +225,12 @@ class Complaint extends BaseController
                 $id = $this->request->getVar('id_fix');
                 $new_screen_fix = $this->request->getFile('screen_fix');
                 $current_screen = $this->ComplaintModel->getById($id);
+                $screen_fix = $new_screen_fix->getRandomName();
+                $new_screen_fix->move('img/Complaint', $screen_fix);
                 if ($current_screen['screen_fix'] != 'Default.jpg') {
                     unlink('img/Complaint/' . $current_screen['screen_fix']);
                 }
-                $screen_fix = $new_screen_fix->getRandomName();
                 $this->ComplaintModel->screen_fix($id, $screen_fix);
-                $new_screen_fix->move('img/Complaint', $screen_fix);
                 $msg = [
                     'msg' => 'Screen Fix Updated Successfully'
                 ];
@@ -238,6 +238,79 @@ class Complaint extends BaseController
             }
         } else {
             return redirect()->to('/Menu/list_complaint');
+        }
+    }
+    // adit complaint
+    public function edit_data_complaint($id)
+    {
+        $employee_id = session()->get('employee_id');
+        $name = session()->get('name');
+        $email = session()->get('email');
+        $role_id = session()->get('role_id');
+
+        if ($employee_id || $email) {
+            if ($role_id == 1) {
+                $menu = $this->MenuModel->getAllmenu();
+            } else {
+                $menu = $this->MenuModel->getUserMenu($role_id);
+            }
+            $data = [
+                'title' => 'Complaint',
+                'name'  => $name,
+                'menu'  => $menu,
+                'complaint'  => $this->ComplaintModel->getById($id)
+            ];
+            return view('/Complaint/edit_data_complaint', $data);
+        } else {
+            return redirect()->to('/');
+        }
+    }
+    // update data complaint
+    public function update_data_complaint()
+    {
+        $validation = \Config\Services::validation();
+        if ($this->request->isAJAX()) {
+            if (!$this->validate([
+                'status' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Status Can Not Empty'
+                    ]
+                ],
+                'solution' => [
+                    'rules' => 'required|max_length[500]',
+                    'errors' => [
+                        'required' => 'Solution Can Not Empty',
+                        'max_length' => 'Max Length 500 Character'
+                    ]
+                ]
+            ])) {
+                $msg = [
+                    'error' => [
+                        'status' => $validation->getError('status'),
+                        'solution' => $validation->getError('solution')
+                    ]
+                ];
+                echo json_encode($msg);
+            } else {
+                $id = $this->request->getVar('id');
+                $status = $this->request->getVar('status');
+                $solution = $this->request->getVar('solution');
+                if ($status == 'Close') {
+                    $this->ComplaintModel->editData($id, $status, $solution);
+                    $msg = [
+                        'msg' => 'Data Updated Successfully'
+                    ];
+                } else {
+                    $this->ComplaintModel->editData($id, $status, $solution);
+                    $msg = [
+                        'msg' => 'Data Updated Successfully'
+                    ];
+                }
+                echo json_encode($msg);
+            }
+        } else {
+            return redirect()->to('Complaint/edit_data_complaint');
         }
     }
 }

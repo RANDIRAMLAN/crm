@@ -98,4 +98,13 @@ class ComplaintModel extends Model
     {
         return $this->where(['id' => $id])->first();
     }
+    // edit data complaint
+    public function editData($id, $status, $solution)
+    {
+        return $this
+            ->set(['status' => $status])
+            ->set(['solution' => $solution])
+            ->where(['id' => $id])
+            ->update();
+    }
 }

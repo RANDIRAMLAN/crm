@@ -143,7 +143,7 @@ class User extends BaseController
             return redirect()->to('/Menu/list_user');
         }
     }
-    //  email verifikasi saat aktivasi dan lupa sandi
+    //  email about account
     private function _sendEmail($type)
     {
         $email = \Config\Services::email();

@@ -221,13 +221,17 @@ $('#edit_data_complaint').submit('click', function () {
     let id = $('#edit_id').val();
     let status = $('#edit_status').val();
     let solution = $('#edit_solution').val();
+    let email = $('#edit_email').val();
+    let complaint = $('#edit_complaint').val();
     $.ajax({
         type: 'post',
         url: '/Complaint/update_data_complaint',
         data: {
             id: id,
             status: status,
-            solution: solution
+            solution: solution,
+            email: email,
+            complaint: complaint
         },
         dataType: 'json',
         success: function (response) {

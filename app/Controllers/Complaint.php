@@ -298,6 +298,7 @@ class Complaint extends BaseController
                 $solution = $this->request->getVar('solution');
                 if ($status == 'Close') {
                     $this->ComplaintModel->editData($id, $status, $solution);
+                    $this->_sendEmail();
                     $msg = [
                         'msg' => 'Data Updated Successfully'
                     ];
@@ -311,6 +312,32 @@ class Complaint extends BaseController
             }
         } else {
             return redirect()->to('Complaint/edit_data_complaint');
+        }
+    }
+    // email close complaint
+    private function _sendEmail()
+    {
+        $email = \Config\Services::email();
+        $email->setFrom('appjingaraka@gmail.com', 'CRM');
+        $email->setTo($this->request->getVar('email'));
+        $email->setSubject('Status Close');
+        $email->setMessage('Your Complaint: <br> 
+                            <table border="1">
+                                <tr>
+                                    <td>No Complaint</td>
+                                    <td>Complaint</td>
+                                    <td>Status</td>
+                                </tr>
+                                <tr>
+                                    <td>' . $this->request->getVar('id') . '</td>
+                                    <td>' . $this->request->getVar('complaint') . '</td>
+                                    <td>' . $this->request->getVar('status') . '</td>
+                                </tr>
+                            </table>');
+        if ($email->send(false)) {
+            $email->printDebugger();
+        } else {
+            $email->send();
         }
     }
 }

@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 <div class="col col-md-12 mt-2">
     <!-- add data user -->
-    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addDataCustomer">
+    <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#addDataCustomer">
         Add Data Customer
     </button>
     <!-- Modal add data user -->

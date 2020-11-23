@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col col-md-10">
             <!-- search data comolint -->
-            <a href="/Complaint/add_data_complaint" type="button" class="btn btn-success btn-sm">
+            <a href="/Complaint/add_data_complaint" type="button" class="btn btn-outline-success btn-sm">
                 Add Complaint
             </a>
         </div>

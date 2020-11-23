@@ -60,7 +60,8 @@ class Login extends BaseController
                         $data = [
                             'employee_id' => $user['employee_id'],
                             'email'       => $user['email'],
-                            'role_id'     => $user['role_id']
+                            'role_id'     => $user['role_id'],
+                            'name'        => $user['name']
                         ];
                         $msg = [];
                         echo json_encode($msg);

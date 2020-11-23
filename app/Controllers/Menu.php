@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\MenuModel;
 use App\Models\UserModel;
 use App\Models\CustomerModel;
+use App\Models\PerformanceModel;
 use App\Models\PostalModel;
 
 class Menu extends BaseController
@@ -13,12 +14,14 @@ class Menu extends BaseController
     protected $UserModel;
     protected $CustomerModel;
     protected $PostalModel;
+    protected $PerformanceModel;
     public function __construct()
     {
         $this->MenuModel = new MenuModel();
         $this->UserModel = new UserModel();
         $this->CustomerModel = new CustomerModel();
         $this->PostalModel = new PostalModel();
+        $this->PerformanceModel = new PerformanceModel();
     }
     // form list complaint
     public function list_complaint()
@@ -179,6 +182,34 @@ class Menu extends BaseController
             ];
         }
         echo json_encode($data);
+    }
+    // performance 
+    public function performance()
+    {
+        $employee_id = session()->get('employee_id');
+        $name = session()->get('name');
+        $email = session()->get('email');
+        $role_id = session()->get('role_id');
+        if ($employee_id || $email) {
+            if ($role_id == 1) {
+                $menu = $this->MenuModel->getAllmenu();
+            } else {
+                $menu = $this->MenuModel->getUserMenu($role_id);
+            }
+            $data = [
+                'title' => 'Performance',
+                'name'  => $name,
+                'menu'  => $menu,
+                'pending' => $this->PerformanceModel->pending(),
+                'progress' => $this->PerformanceModel->progress(),
+                'done' => $this->PerformanceModel->done(),
+                'submit' => $this->PerformanceModel->submit(),
+                'total' => $this->PerformanceModel->total()
+            ];
+            return view('/Menu/performance', $data);
+        } else {
+            return redirect()->to('/');
+        }
     }
     // logout app
     public function  logout()

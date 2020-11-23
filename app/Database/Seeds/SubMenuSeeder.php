@@ -6,6 +6,14 @@ class SubMenuSeeder extends \CodeIgniter\Database\Seeder
 {
     public function run()
     {
+        $data = [
+            'menu_id' => 2,
+            'desc'    => 'Performance',
+            'url'     => '/menu/performance',
+            'icon'    => '-',
+            'status'  => 1
+        ];
+
         $data1 = [
             'menu_id' => 2,
             'desc'    => 'Customer',
@@ -39,6 +47,7 @@ class SubMenuSeeder extends \CodeIgniter\Database\Seeder
         ];
 
         // Using Query Builder
+        $this->db->table('menu')->insert($data);
         $this->db->table('menu')->insert($data1);
         $this->db->table('menu')->insert($data2);
         $this->db->table('menu')->insert($data3);

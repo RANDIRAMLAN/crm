@@ -2,23 +2,41 @@
 
 namespace App\Controllers;
 
+use App\Models\MenuModel;
 use App\Models\PostalModel;
 
 
 class Import extends BaseController
 {
     protected $PostalModel;
+    protected $MenuModel;
     public  function __construct()
     {
         $this->PostalModel = new PostalModel();
+        $this->MenuModel = new MenuModel();
     }
     public function import()
     {
-        $data = [
-            'title' => 'Import Data',
-            'validation' => \Config\Services::validation()
-        ];
-        return view('/Import/import', $data);
+        $employee_id = session()->get('employee_id');
+        $name = session()->get('name');
+        $email = session()->get('email');
+        $role_id = session()->get('role_id');
+        if ($employee_id || $email) {
+            if ($role_id == 1) {
+                $menu = $this->MenuModel->getAllmenu();
+            } else {
+                $menu = $this->MenuModel->getUserMenu($role_id);
+            }
+            $data = [
+                'title' => 'Import Data',
+                'name'  => $name,
+                'menu'  => $menu,
+                'validation' => \Config\Services::validation()
+            ];
+            return view('/Import/import', $data);
+        } else {
+            return redirect()->to('/');
+        }
     }
 
     // import data excel

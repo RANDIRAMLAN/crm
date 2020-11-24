@@ -20,7 +20,10 @@
                 <td><?= $submit; ?></td>
                 <td><?= $total; ?></td>
                 <td>
-                    <button class="btn btn-outline-success btn-sm">Export</button></caption>
+                    <form action="/Export/export" method="post">
+                        <?= csrf_field(); ?>
+                        <button type="submit" class="btn btn-outline-success btn-sm">Export</button>
+                    </form>
                 </td>
             </tr>
         </tbody>

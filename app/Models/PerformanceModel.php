@@ -10,7 +10,7 @@ class PerformanceModel extends Model
     public function performance()
     {
         return $this->db->table('user', 'complaint')
-            ->select('user.employee_id, user.name, complaint.complaint, complaint.status, complaint.created_at, complaint.updated_at')
+            ->select('user.employee_id, user.name, complaint.complaint, complaint.status, complaint.created_at, complaint.company, complaint.phone_number')
             ->join('complaint', 'user.employee_id=complaint.to_do')
             ->where(['user.status' => 1])
             ->where(['complaint.status' => 'Pending'])
